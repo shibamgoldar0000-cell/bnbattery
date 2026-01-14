@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BN BATTERY | Baduria & Berachampa</title>
+    <style>
+        /* Red & Professional Theme */
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background-color: #f4f4f4; color: #333; }
+        header { background-color: #d32f2f; color: white; padding: 40px 20px; text-align: center; border-bottom: 6px solid #b71c1c; }
+        .container { max-width: 900px; margin: auto; padding: 20px; }
+        
+        /* Search Box */
+        .search-container { margin-bottom: 30px; text-align: center; }
+        .search-input { width: 100%; max-width: 500px; padding: 15px; font-size: 18px; border: 2px solid #d32f2f; border-radius: 30px; outline: none; }
+
+        /* Brand Grid */
+        .brand-section { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 40px; }
+        .brand-btn { background-color: white; color: #d32f2f; border: 2px solid #d32f2f; padding: 12px 25px; cursor: pointer; border-radius: 5px; font-weight: bold; transition: 0.3s; }
+        .brand-btn:hover { background-color: #d32f2f; color: white; }
+
+        /* Product Cards */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-top: 5px solid #d32f2f; }
+        .model-name { font-size: 20px; color: #d32f2f; margin-bottom: 10px; }
+        .details { font-size: 14px; color: #666; margin-bottom: 15px; line-height: 1.5; }
+        .mrp { text-decoration: line-through; color: #999; font-size: 16px; }
+        .our-price { color: #2e7d32; font-size: 24px; font-weight: bold; margin-top: 5px; }
+        .offer-tag { background: #ffd700; color: #000; padding: 5px 10px; font-size: 12px; font-weight: bold; border-radius: 4px; display: inline-block; margin-bottom: 10px; }
+
+        /* Contact Buttons */
+        .contact-buttons { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
+        .btn { padding: 15px 25px; border-radius: 50px; text-decoration: none; color: white; font-weight: bold; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .btn-wa { background-color: #25D366; }
+        .btn-call { background-color: #007bff; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>BN BATTERY 🔋</h1>
+    <p>Authorized Dealer: Exide | Amaron | SF Sonic | Luminous</p>
+    <p>Baduria (743401) & Berachampa (743437)</p>
+</header>
+
+<div class="container">
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search by Car/Bike Name (e.g. Swift, Bullet)..." onkeyup="searchFunction()">
+    </div>
+
+    <div class="brand-section">
+        <button class="brand-btn" onclick="filterBrand('Exide')">Exide Care</button>
+        <button class="brand-btn" onclick="filterBrand('Amaron')">Amaron</button>
+        <button class="brand-btn" onclick="filterBrand('SF Sonic')">SF Sonic</button>
+        <button class="brand-btn" onclick="filterBrand('Luminous')">Luminous</button>
+    </div>
+
+    <div id="productGrid" class="product-grid">
+        </div>
+</div>
+
+<div class="contact-buttons">
+    <a href="tel:8918018413" class="btn btn-call">📞 Call Now</a>
+    <a href="https://wa.me/918918018413" class="btn btn-wa">💬 WhatsApp</a>
+</div>
+
+<script>
+    // Comprehensive Battery List
+    const batteryData = [
+        { brand: 'Exide', model: 'Mileage ML38B20L', mrp: 5500, fits: 'Maruti Swift, Dzire, WagonR, Alto' },
+        { brand: 'Exide', model: 'Epiq EPIQ35L', mrp: 5800, fits: 'Maruti Celerio, Tata Tiago' },
+        { brand: 'Exide', model: 'Matrix MTRED45L', mrp: 6800, fits: 'Honda City, Hyundai i20' },
+        { brand: 'Exide', model: 'XP800 80Ah', mrp: 10500, fits: 'Mahindra Marazzo, Scorpio, Bolero' },
+        { brand: 'Exide', model: 'Explorer 12BV5LB', mrp: 1800, fits: 'Royal Enfield Bullet, Classic 350' },
+        { brand: 'Exide', model: 'Insta Brite 150Ah', mrp: 15500, fits: 'Home Inverter / UPS' },
+        { brand: 'Amaron', model: 'Flo 42B20L', mrp: 5200, fits: 'Maruti Swift, Hyundai Santro' },
+        { brand: 'SF Sonic', model: 'Flash Start 35L', mrp: 4800, fits: 'Small Cars & Hatchbacks' }
+    ];
+
+    function renderProducts(data) {
+        const grid = document.getElementById('productGrid');
+        grid.innerHTML = "";
+        
+        data.forEach(item => {
+            const ourPrice = Math.round(item.mrp * 0.67); // 33% OFF
+            grid.innerHTML += `
+                <div class="card">
+                    <div class="offer-tag">FLAT 33% OFF</div>
+                    <div class="model-name">${item.brand} ${item.model}</div>
+                    <div class="details"><strong>Fits:</strong> ${item.fits}</div>
+                    <div class="mrp">MRP: ₹${item.mrp}</div>
+                    <div class="our-price">Our Price: ₹${ourPrice}*</div>
+                    <p style="font-size:10px; color:gray">*With Old Battery Exchange</p>
+                </div>
+            `;
+        });
+    }
+
+    function searchFunction() {
+        const query = document.getElementById('searchInput').value.toLowerCase();
+        const filtered = batteryData.filter(item => 
+            item.fits.toLowerCase().includes(query) || 
+            item.brand.toLowerCase().includes(query) ||
+            item.model.toLowerCase().includes(query)
+        );
+        renderProducts(filtered);
+    }
+
+    function filterBrand(brand) {
+        const filtered = batteryData.filter(item => item.brand === brand);
+        renderProducts(filtered);
+    }
+
+    // Initial load
+    renderProducts(batteryData);
+</script>
+
+</body>
+</html>
